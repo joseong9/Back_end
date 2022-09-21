@@ -13,6 +13,8 @@ const server = http.createServer((req, res) => {
                 res.end(html);
             });
         }else { //method가 POST인 경우
+            let body = '';
+            req.on('data', )
             res.end('<h1>Received Form data</h1>')
         };
         break;
