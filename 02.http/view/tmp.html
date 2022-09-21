@@ -1,23 +1,26 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>웹 기술</title>
+    <title>Document</title>
 </head>
-<body style="margin: 35px;">
-    <h1>웹 기술</h1>
-    <ul>
-        <li><h3>CSS</h3></li>
-        <li><h3>HTML</h3></li>
-        <li><h3>JavaScript</h3></li>
-    </ul>
-    <hr>
-    <p>
-        월드 와이드 웹이란
-        인터넷에 연결된 사용자들이 서로의 정보를 공유할 수 있는 공간을 의미합니다.
-        간단히 줄여서 WWW나 W3라고 부릅니다.
-    </p>
+<body>
+    <form action="/create" method="post">
+        <table>
+            <tr>
+                <td>제목</td>
+                <td><input type="text" name="title"></td>
+            </tr>
+            <tr>
+                <td>내용</td>
+                <td><textarea name="content" cols="60" rows="5"></textarea></td>
+            </tr>
+            <tr>
+                <td colspan="2" style="text-align: center;"><input type="submit" value="생성"></td>
+            </tr>
+        </table>
+    </form>
 </body>
 </html>
