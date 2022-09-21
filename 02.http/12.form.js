@@ -1,6 +1,7 @@
 const http = require('http');
 const fs = require('fs');
-const url = require('url')
+const url = require('url');
+const qs = require('querystring')
 
 const server = http.createServer((req, res) => {
     let pathname = url.parse(req.url).pathname;
@@ -14,8 +15,15 @@ const server = http.createServer((req, res) => {
             });
         }else { //method가 POST인 경우
             let body = '';
-            req.on('data', )
-            res.end('<h1>Received Form data</h1>')
+            req.on('data', data => {
+                body += data;
+            });
+            req.on('end', ()=> {
+                let param = qs.parse(body);
+                //console.log(param);
+                //console.log(param.uid, param.pwd);
+                res.end(`<h1>UID:${param.uid}, PWD:${param.pwd}</h1>`)
+            });
         };
         break;
     default :
