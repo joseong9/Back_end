@@ -14,7 +14,7 @@ http.createServer((req, res) => {
             fs.readdir('data', (err, files) => {
                 const title = '웹 기술';
                 const list = template.listGen(files);
-                const content = template.HOME_CONTENTS.replace('\n','<br>');
+                const content = template.HOME_CONTENTS.replace(/\n/g,'<br>');
                 const control = template.buttonGen();
                 const html = view.index(title, list, content, control);
                 res.end(html);
@@ -25,7 +25,7 @@ http.createServer((req, res) => {
                 const list = template.listGen(files);
                 const filename = `data/${query.id}.txt`;
                 fs.readFile(filename, 'utf8', (err, data) => {
-                    let content = data.replace('\n','<br>');
+                    let content = data.replace(/\n/g,'<br>');
                     const control = template.buttonGen(title);
                     const html = view.index(title, list, content, control);
                     res.end(html);
@@ -43,7 +43,23 @@ http.createServer((req, res) => {
                 res.end(html);
             });
         } else {
-
+            let body = '';
+            req.on('data', data => {
+                body += data;
+            });
+            req.on('end', () => {
+                const param = qs.parse(body);
+                if (param.title.trim().length == 0) {
+                    res.writeHead(302, {'Location': '/'});
+                    res.end();
+                } else {
+                    const fname = `data/${param.title}.txt`;
+                    fs.writeFile(fname, param.content, err => {
+                        res.writeHead(302, {'Location': `/?id=${param.title}`});
+                        res.end();
+                    });
+                }
+            });
         }
         break;
     default:
