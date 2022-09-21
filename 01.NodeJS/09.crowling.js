@@ -18,4 +18,3 @@ axios.get(url)
     .catch(err => {
         console.log(err);
     });
-
