@@ -1,6 +1,3 @@
-/*
- * 데이터 조작 언어(DML: Data Manipulation Language)
- */
 /* 1. 조회 */
 USE world;
 SHOW TABLES;
