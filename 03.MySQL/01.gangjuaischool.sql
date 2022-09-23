@@ -43,7 +43,7 @@ SELECT * FROM city WHERE countrycode='KOR' AND district LIKE 'Cholla%';
 # 인구수가 800만 이상의 도시를 인구수의 내림차순으로 조회
 SELECT * FROM city WHERE population>8000000 ORDER BY population DESC;
 # 한국의 도시를 district는 오름차순, Name도 오름차순
-SELECT * FROM city WHERE countrycode='KOR' 
+SELECT * FROM city WHERE countrycode='KOR' /* SELECT * FROM 테이블명 WHERE  필드명 = '조건' */
 	ORDER BY district, NAME;
 # 광역시도별로 도시 인구수가 많은 것부터 보여줘라.
 # 한국의 도시를 district는 오름차순, 인구수는 내림차순
@@ -106,3 +106,15 @@ SELECT country.name, SUM(city.population) FROM city
 SELECT country.Name, city.Name, city.Population FROM city
 	JOIN country ON city.CountryCode=country.Code
 	ORDER BY city.Population DESC LIMIT 10;
+
+SELECT * FROM city WHERE countrycode='KOR' AND name LIKE 'G%'
+
+UPDATE city
+	SET NAME = 'Gwangju' , district='Gwangju'
+	WHERE NAME = 'Kwangju' and district='Kwangju'
+
+INSERT INTO city
+	(NAME, countrycode, district, population)
+	VALUES ('Haenam'm 'KOR', 'Chollanam', 10000);
+
+SELECT *FROM city WHERE district LIKE 'cholla%'
