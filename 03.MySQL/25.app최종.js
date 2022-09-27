@@ -1,8 +1,7 @@
 const http = require('http');
 const url = require('url');
 const qs = require('querystring');
-const mysql = require('mysql');
-const config = require('./mysql.json');
+const dm = require('./db-module');
 const template = require('./view/template');
 
 http.createServer((req, res) => {
@@ -10,17 +9,11 @@ http.createServer((req, res) => {
     let query = url.parse(req.url, true).query;
     switch(pathname) {
     case '/':                   // 초기 홈 화면
-        const conn = mysql.createConnection(config);
-        conn.connect();
-        const sql = `SELECT * FROM tigers WHERE isDeleted=0;`;
-        conn.query(sql, (err, rows, fields) => {
-            if (err)
-                throw err;
+        dm.getList(rows => {
             const trs = template.trsGen(rows);
             const html = template.home(trs);
             res.end(html);
         });
-        conn.end();
         break;
     case '/create':
         if (req.method == 'GET') {      // 입력 폼 보여주기
@@ -37,36 +30,23 @@ http.createServer((req, res) => {
                 const backNo = parseInt(param.backNo);
                 const position = param.position;
 
-                const conn = mysql.createConnection(config);
-                conn.connect();
-                const sql = `INSERT INTO tigers (player, backNo, POSITION)
-                            VALUES (?, ?, ?);`;
-                conn.query(sql, [player, backNo, position], (err, fields) => {
-                    if (err)
-                        throw err;
+                dm.insertPlayer([player, backNo, position], () => {
                     res.writeHead(302, {'Location': '/'});
                     res.end();
                 });
-                conn.end();
             });
         }
         break;   
     case '/update':
         if (req.method == 'GET') {              // 수정입력할 폼 보여주기
             const id = parseInt(query.id);
-            const conn = mysql.createConnection(config);
-            conn.connect();
-            const sql = `SELECT * FROM tigers WHERE id=? and isDeleted=0;`;
-            conn.query(sql, id, (err, rows, fields) => {
-                if (err)
-                    throw err;
+            dm.getPlayer(id, rows => {
                 const player = rows[0].player;
                 const backNo = rows[0].backNo;
                 const position = rows[0].position;
                 const html = template.updateForm(id, player, backNo, position);
                 res.end(html);
             });
-            conn.end();
         } else {                                // DB에 수정하기
             let body = '';
             req.on('data', data => {
@@ -79,21 +59,14 @@ http.createServer((req, res) => {
                 const backNo = parseInt(param.backNo);
                 const position = param.position;
 
-                const conn = mysql.createConnection(config);
-                conn.connect();
-                const sql = `UPDATE tigers SET player=?, backNo=?, position=?
-                            WHERE id=?;`;
-                conn.query(sql, [player, backNo, position, id], (err, fields) => {
-                    if (err)
-                        throw err;
+                dm.updatePlayer([player, backNo, position, id], () => {
                     res.writeHead(302, {'Location': '/'});
                     res.end();
                 });
-                conn.end();
             });
         }
         break;
-    case '/delete':
+    /* case '/delete':
         const did = parseInt(query.id);
         const html = template.deleteForm(did);
         res.end(html);
@@ -111,7 +84,7 @@ http.createServer((req, res) => {
         });
         conn.end();
         break;
-        }
+        } */
     default:
         res.writeHead(404, {'Content-Type': 'text/html'});
         res.end();        
