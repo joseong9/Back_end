@@ -66,25 +66,16 @@ http.createServer((req, res) => {
             });
         }
         break;
-    /* case '/delete':
-        const did = parseInt(query.id);
-        const html = template.deleteForm(did);
+    case '/delete':
+        const html = template.deleteForm(parseInt(query.id));
         res.end(html);
         break;
-    case '/deleteConfirm': {
-        const id = parseInt(query.id);
-        const sql = `UPDATE tigers SET isDeleted=1 WHERE id=?`;
-        const conn = mysql.createConnection(config);
-        conn.connect();
-        conn.query(sql, id, (err, fields) => {
-            if (err)
-                throw err;
+    case '/deleteConfirm':
+        dm.deletePlayer(parseInt(query.id), () => {
             res.writeHead(302, {'Location': '/'});
             res.end();
         });
-        conn.end();
         break;
-        } */
     default:
         res.writeHead(404, {'Content-Type': 'text/html'});
         res.end();        

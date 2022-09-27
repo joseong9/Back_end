@@ -54,4 +54,14 @@ module.exports = {
         });
         conn.end();
     },
+    deletePlayer: function(params, callback) {
+        const conn = this.getConnection();
+        const sql = `UPDATE tigers SET isDeleted=1 WHERE id=?`;
+        conn.query(sql, params, (err, fields) => {
+            if (err)
+                throw err;
+            callback();
+        });
+        conn.end();
+    },
 }
