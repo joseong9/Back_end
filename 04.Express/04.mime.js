@@ -1,5 +1,5 @@
-const express = require('express');
 const app = express();
+const express = require('express');
 const fs = require('fs')
 
 // request header의 값을 읽기

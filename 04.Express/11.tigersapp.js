@@ -2,8 +2,10 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const dm = require('./db/tigers-module');
 const template = require('./views/tigers-template');
-
+const fs = require('fs');
 const app = express();
+
+
 app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.urlencoded({extended: false}));
 

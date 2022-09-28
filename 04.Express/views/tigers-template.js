@@ -13,13 +13,14 @@ module.exports = {
             </style>
         </head>
         <body style="margin: 50px;">
-            <h1>기아 타이거즈 선수단</h1>
+            <img src="./tigers/emblem.jpg">
             <button onclick="location.href='/create'">추가</button>
             <hr>
             <table>
                 <tr>
                     <th>ID</th>
                     <th>선수명</th>
+                    <th>사진</th>
                     <th>백넘버</th>
                     <th>포지션</th>
                     <th>액션</th>
@@ -36,6 +37,7 @@ module.exports = {
         for (let row of rows) {
             trs += '<tr>';
             trs += `<td>${row.id}</td><td>${row.player}</td>`;
+            trs += `<td><img src="./tigers/${row.player}.jpg"></td>`
             trs += `<td>${row.backNo}</td><td>${row.position}</td>`;
             trs += `<td><a href="/update?id=${row.id}">수정</a>, 
                         <a href="/delete?id=${row.id}">삭제</a></td>`;
