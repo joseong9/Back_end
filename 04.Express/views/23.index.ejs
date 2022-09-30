@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>기아 타이거즈</title>
+            <style>
+                th, tr { text-align: center }
+            </style>
+        </head>
+        <body style="margin: 50px;">
+            <img src="./tigers/emblem.jpg" height="300">
+            <button onclick="location.href='/create'">추가</button>
+            <hr>
+            <table>
+                <tr>
+                    <th>ID</th>
+                    <th>선수명</th>
+                    <th>사진</th>
+                    <th>백넘버</th>
+                    <th>포지션</th>
+                    <th>액션</th>
+                </tr>
+                <%for(let row of rows) {%>
+                    <tr>
+                        <td><%=row.id%></td>
+                        <td><%=row.player%></td>
+                        <td><img src="/tigers/<%=row.player%>.jpg" height="48"></td>
+                        <td><%=row.backNo%></td>
+                        <td><%=row.position%></td>
+                        <td><td><a href="/update/<%=row.id%>">수정</a>, 
+                            <a href="/delete/<%=row.id%>">삭제</a></td>
+                            </td>
+                    </tr>
+                <% } %>
+            </table>
+        </body>
+        </html>
