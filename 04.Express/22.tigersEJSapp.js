@@ -17,10 +17,13 @@ app.get('/', (req, res) => {
         });
     });
 });
-/* app.get('/create', (req, res) => {
-    const html = template.createForm();
-    res.send(html);
+
+app.get('/create', (req, res) => {
+    ejs.renderFile('views/22.create.ejs', (err, html) => {
+        res.send(html);
+    })
 });
+
 app.post('/create', (req, res) => {
     const player = req.body.player;
     const backNo = parseInt(req.body.backNo);
@@ -29,16 +32,19 @@ app.post('/create', (req, res) => {
         res.redirect('/');
     });
 });
+
 app.get('/update', (req, res) => {  // http://localhost:3000/update?id=123
     const id = parseInt(req.query.id);
     dm.getPlayer(id, rows => {
         const player = rows[0].player;
         const backNo = parseInt(rows[0].backNo);
         const position = rows[0].position;
-        const html = template.updateForm(id, player, backNo, position);
-        res.send(html);
-    })
+        ejs.renderFile('views/22.update.ejs', {id, player, backNo, position}, (err, html) => {
+            res.send(html);
+        });
+    });
 });
+
 app.post('/update', (req, res) => {
     const id = req.body.id;
     const player = req.body.player;
@@ -48,17 +54,20 @@ app.post('/update', (req, res) => {
         res.redirect('/');
     });
 });
+
 app.get('/delete', (req, res) => {      // http://localhost/delete?id=123
     const id = parseInt(req.query.id);
-    const html = template.deleteForm(id);
-    res.send(html);
+    ejs.renderFile('views/22.delete.ejs', {id}, (err, html) => {
+        res.send(html)
+    });
 });
+
 app.get('/deleteConfirm', (req, res) => {
     const id = parseInt(req.query.id);
     dm.deletePlayer(id, () => {
         res.redirect('/');
     });
-}); */
+});
 
 app.get('*', (req, res) => {
     res.status(404).send('Path not found.');
