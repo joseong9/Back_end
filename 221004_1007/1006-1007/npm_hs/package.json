@@ -1,12 +1,17 @@
 {
-    "name": "npm_jsg",
-    "description": "my package for test",
-    "version": "0.0.1",
-    "main": "index.js",
-    "scripts": {
-        "test" : "echo"
-    },
-    "keywords": ["npm_jsg"],
-    "license": "ISC",
-    "author": "jsg"
+  "name": "npm_jsg",
+  "description": "my package for test",
+  "version": "0.0.1",
+  "main": "index.js",
+  "scripts": {
+    "abcd": "echo \"안녕하세요 \""
+  },
+  "keywords": [
+    "npm_jsg"
+  ],
+  "license": "ISC",
+  "author": "jsg",
+  "dependencies": {
+    "express": "^4.18.1"
+  }
 }
