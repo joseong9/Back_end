@@ -1,0 +1,12 @@
+{
+    "name": "npm_jsg",
+    "description": "my package for test",
+    "version": "0.0.1",
+    "main": "index.js",
+    "scripts": {
+        "test" : "echo"
+    },
+    "keywords": ["npm_jsg"],
+    "license": "ISC",
+    "author": "jsg"
+}
